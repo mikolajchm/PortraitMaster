@@ -11,7 +11,7 @@ exports.add = async (req, res) => {
     if(title && author && email && file) { // if fields are not empty...
 
       const emailPattern = new RegExp (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
-      const textPattern = /^[a-zA-Z0-9._\-\s]+$/;
+      const textPattern = new RegExp (/^[a-zA-Z0-9._\-\s]+$/);
 
       if( 
         !email.match(emailPattern) ||
@@ -32,7 +32,7 @@ exports.add = async (req, res) => {
         const newPhoto = new Photo({ title, author, email, src: fileName, votes: 0 });
         await newPhoto.save(); // ...save new photo in DB
         res.json(newPhoto);
-      } else {``
+      } else {
         throw new Error('Wrong input!');
       }
     } else {
